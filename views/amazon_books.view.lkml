@@ -31,6 +31,10 @@ view: amazon_books {
     type: number
     sql: ${TABLE}.Rating ;;
   }
+  dimension: dummy {
+    type: string
+    sql: ${TABLE}.dummy ;;
+  }
 
   measure: count {
     type: count
@@ -50,4 +54,13 @@ view: amazon_books {
       END
   ;;
   }
+  filter: BookName_filter   {
+    label: "Book Name Filter"
+    suggest_dimension: amazon_books.book_name
+    required_fields: [amazon_books.dummy]
+   # sql:  {% condition mgr_full_name_filter %} cust_owner.full_name {% endcondition %} OR {% condition mgr_full_name_filter %} cust_owner.mgr_full_name {% endcondition %} ;;
+  }
+
+
+
 }
