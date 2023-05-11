@@ -31,6 +31,22 @@ view: amazon_books {
     type: number
     sql: ${TABLE}.Rating ;;
   }
+  parameter: item_to_add_up {
+    type: unquoted
+    allowed_value: {
+      label: "Total Retail Price"
+      value: "price"
+    }
+    allowed_value: {
+      label: "Average Retail Price"
+      value: "rating"
+    }
+  }
+  measure: dynamic_sum {
+    type: sum
+    sql: ${TABLE}.{% parameter item_to_add_up %} ;;
+    label_from_parameter: item_to_add_up
+  }
   dimension: dummy {
     type: string
     sql: ${TABLE}.dummy ;;
